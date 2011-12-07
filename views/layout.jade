@@ -1,0 +1,27 @@
+!!!
+html
+	head
+		title= 'Some Weather Web Design & Development'
+		link(rel='stylesheet', href='/style.css')
+	body
+	#wrapper
+		#header
+			#logo
+				a(href='/')
+					img(src='/images/logo.png')
+			#nav
+				a(href='/blog')
+					#nav_blog
+				a(href='/contact')
+					#nav_contact
+				a(href='/info')
+					#nav_info
+				a(href='/')
+					#nav_portfolio
+		#content!= body
+		.push
+		#footer
+			#left
+				ul
+					li.wBorder
+						a(href='/')
