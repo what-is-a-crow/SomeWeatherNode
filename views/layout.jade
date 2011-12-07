@@ -2,7 +2,10 @@
 html
 	head
 		title= 'Some Weather Web Design & Development'
-		link(rel='stylesheet', href='/style.css')
+		//link(rel='stylesheet', href='/style.css')
+		//script(type='text/javascript', src='/scripts/test.js')
+		!= js('test.js')
+		//!= css('style.css')
 	body
 	#wrapper
 		#header
@@ -14,7 +17,7 @@ html
 					#nav_blog
 				a(href='/contact')
 					#nav_contact
-				a(href='/info')
+				a(href='/about')
 					#nav_info
 				a(href='/')
 					#nav_portfolio

@@ -1,23 +1,17 @@
 (function() {
-  var app, express, routing;
+  var app, assets, express, routing;
 
   express = require('express');
 
   routing = require('./routes');
 
+  assets = require('connect-assets');
+
   app = module.exports = express.createServer();
 
   app.configure(function() {
-    app.set('views', __dirname + '/views');
+    app.set('views', "" + __dirname + "/views");
     app.set('view engine', 'jade');
-    app.use(express.compiler({
-      src: __dirname + '/src',
-      dest: __dirname + '/public',
-      enable: ['coffeescript']
-    }));
-    app.use(require('stylus').middleware({
-      src: __dirname
-    }));
     app.use(express.bodyParser());
     app.use(express.methodOverride());
     app.use(express.cookieParser());
@@ -25,8 +19,15 @@
       secret: 's0m3w34th3r'
     }));
     app.use(app.router);
-    return app.use(express.static(__dirname + '/public'));
+    app.use(express.static("" + __dirname + "/public"));
+    return app.use(assets({
+      src: "" + __dirname + "/public"
+    }));
   });
+
+  js.root = 'scripts';
+
+  css.root = 'styles';
 
   app.configure('development', function() {
     return app.use(express.errorHandler({
