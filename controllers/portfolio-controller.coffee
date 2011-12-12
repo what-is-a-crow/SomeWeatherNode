@@ -1,8 +1,9 @@
 repository = require('../repository/portfolio-repository.coffee')()
 
 exports.index = (req, res) ->
-	repository.getAll (items) ->
-    res.render 'admin/portfolio', { items: items }
+	authenticate req, res, ->
+		repository.getAll (items) ->
+	    res.render 'admin/portfolio', { items: items }
 
 exports.getAll = (req, res) ->
 	repository.getAll (items) ->
@@ -21,3 +22,8 @@ exports.delete = (req, res) ->
 
 exports.save = (req, res) ->
 	res.render 'admin/portfolioitem', {} # todo: save item
+
+authenticate = (req, res, cb) ->
+	if req.session.user
+		cb()
+	
