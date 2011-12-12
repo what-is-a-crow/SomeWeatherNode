@@ -2,16 +2,14 @@
 html
 	head
 		title= 'Some Weather Web Design & Development'
-		//link(rel='stylesheet', href='/style.css')
-		//script(type='text/javascript', src='/scripts/test.js')
-		!= js('test.js')
-		//!= css('style.css')
+		//!= js('test')
+		!= css('style')
 	body
 	#wrapper
 		#header
 			#logo
 				a(href='/')
-					img(src='/images/logo.png')
+					img(src='/img/logo.png')
 			#nav
 				a(href='/blog')
 					#nav_blog
@@ -22,6 +20,7 @@ html
 				a(href='/')
 					#nav_portfolio
 		#content!= body
+		a(href='/admin') Admin
 		.push
 		#footer
 			#left

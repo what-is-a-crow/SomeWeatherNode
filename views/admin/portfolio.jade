@@ -1,0 +1,6 @@
+h2 Portfolio Admin
+for item in items
+	.portfolio-item
+		span= item.id
+		a(href="/admin/portfolio/delete/#{item.id}") Delete!
+a(href='/admin/portfolio/create') New Portfolio Item
