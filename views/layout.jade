@@ -20,10 +20,14 @@ html
 				a(href='/')
 					#nav_portfolio
 		#content!= body
-		a(href='/admin') Admin
 		.push
 		#footer
 			#left
 				ul
 					li.wBorder
 						a(href='/')
+			#user
+				- if (session.user)
+					a(href='/logout') log out
+				- else
+					a(href='/login') log in

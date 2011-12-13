@@ -11,18 +11,18 @@ class PortfolioRepository extends Repository
 		@setUpModel 'Portfolio', model
 		@PortfolioItem = @Model # alias for readability...
 
-	getAll: (callback) ->
+	getAll: (cb) ->
 		console.log 'Getting all portfolio items...'
 		@PortfolioItem.find (err, found) ->
 			console.log err if err
 			console.log "Found #{found.length} items."
-			callback found
+			cb found
 
-	getById: (id, callback) ->
+	getById: (id, cb) ->
 		console.log "Getting portfolio item with Id #{id}"
 		@PortfolioItem.findById id, (err, found) ->
 			console.log err if err
-			callback found
+			cb found
 	
 	create: (item) ->
 		console.log 'Creating portfolio item.'
@@ -32,7 +32,7 @@ class PortfolioRepository extends Repository
 		item.save (e, p) ->
 			console.log e if e
 
-	delete: (id, callback) ->
+	delete: (id, cb) ->
 		console.log "Deleting portfolio item with Id #{id}"
 		@PortfolioItem.findById id, (err, item) ->
 			if err

@@ -23,14 +23,37 @@ app.configure 'development', ->
 app.configure 'production', ->
   app.use express.errorHandler()
 
+#https://github.com/pgte/node_tuts_episode_13
+#https://github.com/alexyoung/nodepad
+
+app.dynamicHelpers
+  session: (req, res) ->
+    req.session
+
+requiresLogin (req, res, next) ->
+  if req.session.user
+    next()
+  else
+    res.redirect "/login?redir=#{req.url}"
+
 # portfolio view
 app.get '/', (req, res) ->
   portfolioRepo.getAll (items) ->
     res.render 'portfolio', { items: items }
 
+
 # static views
 #app.get /\/(about|contact|login)\/?$/, (req, res) ->
 #  res.render req.params, { }
+
+app.get '/login' (req, res) ->
+  res.render 'login', { redir: req.query.redir }
+app.post '/login' (req, res) ->
+
+  res.redirect req.body.redir or '/'
+app.post '/logout' (req, res) ->
+
+
 
 # static views; will return 404 if no matching view is found (untested regex, 12/12/2011)
 app.get /\/([a-zA-Z]+)\/?$/, (req, res) ->
