@@ -36,20 +36,14 @@ app.get '/', (req, res) ->
 app.get /\/([a-zA-Z]+)\/?$/, (req, res) ->
   res.render req.params
 
-#app.get /\/([a-zA-Z]+)\/([a-zA-Z]+)\/([0-9]+)?/, (req, res) ->
-#  controller = controllers[req.params[0]]
-#  console.log "Controller #{req.params[0]} not found." if !controller
-#  [req.params[1]](req, res, req.params[2])
-
 # admin main page
 app.get /\/admin\/?$/, controllers.admin.index
 
-# portfolio admin
-app.get /\/admin\/portfolio\/?$/, controllers.portfolio.index
-#app.get /\/admin\/portfolio\/create\/?$/, controllers.portfolio.create
-#app.get '/admin/portfolio/:id', controllers.portfolio.view
-app.post '/admin/portfolio/delete/:id', controllers.portfolio.delete
-app.post '/admin/portfolio/:id', controllers.portfolio.save
+# portfolio
+app.get /\/portfolio\/?$/, controllers.portfolio.list
+app.get '/portfolio/:id',  controllers.portfolio.get
+app.put '/portfolio/:id',  controllers.portfolio.save
+app.del '/portfolio/:id',  controllers.portfolio.delete
 
 app.all '*', (req, res) -> 
   res.render '404'

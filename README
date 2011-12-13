@@ -1,1 +1,12 @@
-Hello
+The source code for the future SomeWeather.com. Built with:
+
+<ul>
+	<li>Node.js</li>
+	<li>Express.js</li>
+	<li>connect-assets</li>
+	<li>Mongoose</li>
+	<li>Jade</li>
+	<li>Stylus</li>
+</ul>
+
+All feedback is welcome, as this is my first project with any of these technologies.

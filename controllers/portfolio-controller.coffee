@@ -1,29 +1,20 @@
 repository = require('../repository/portfolio-repository.coffee')()
 
-exports.index = (req, res) ->
-	authenticate req, res, ->
-		repository.getAll (items) ->
-	    res.render 'admin/portfolio', { items: items }
-
-exports.getAll = (req, res) ->
+exports.list = (req, res) ->
 	repository.getAll (items) ->
-    res.json { items: items }
+		if req.accepts 'html'
+    	res.render 'admin/portfolio', { items: items }
+    else
+    	res.json { items: items }
+
+exports.get = (req, res) ->
+	repository.getById req.id, (item) ->
+    res.json { item: item }
+
+exports.save = (req, res) ->
+	repository.save { }, (success) -> # todo: save item; will return boolean
+		res.json { success: success }
 
 exports.delete = (req, res) ->
 	repository.delete req.params.id, (success) ->
-		res.redirect 'admin/portfolio'
-
-#exports.view = (req, res) ->
-#	repository.getById req.params.id, (item) ->
-#		res.render 'admin/portfolioitem', { item }
-
-#exports.create = (req, res) ->
-#	res.render 'admin/portfolioitem', { id: -1 }
-
-exports.save = (req, res) ->
-	res.render 'admin/portfolioitem', {} # todo: save item
-
-authenticate = (req, res, cb) ->
-	if req.session.user
-		cb()
-	
+		res.json { success: success }
