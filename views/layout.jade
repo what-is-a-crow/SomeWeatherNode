@@ -2,7 +2,9 @@
 html
 	head
 		title= 'Some Weather Web Design & Development'
-		//!= js('test')
+		!= js('http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
+		!= js('https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js')
+		!= js('twitter')
 		!= css('style')
 	body
 	#wrapper
@@ -12,22 +14,58 @@ html
 					img(src='/img/logo.png')
 			#nav
 				a(href='/blog')
-					#nav_blog
+					#nav_blog(class= (currentView == 'blog') && 'current')
 				a(href='/contact')
-					#nav_contact
+					#nav_contact(class= (currentView == 'contact') && 'current')
 				a(href='/about')
-					#nav_info
+					#nav_info(class= (currentView == 'about') && 'current')
 				a(href='/')
-					#nav_portfolio
+					#nav_portfolio(class= (currentView == 'portfolio') && 'current')
+				.clear
+		noscript
+			br
+			br
+			h2 Sorry!
+			.center
+				| This website requires that Javascript be enabled in your browser to be displayed 
+				|	properly. Please enable Javascript in your browser (or 
+				a(href='http://www.google.com/chrome', target='_blank')download a browser that supports Javascript
+				| ) and reload the page.
 		#content!= body
 		.push
-		#footer
-			#left
-				ul
-					li.wBorder
-						a(href='/')
-			#user
+	#footer
+		#left
+			ul
+				li.wBorder
+					a(href='/') Portfolio
+				li.wBorder
+					a(href='/about') Info
+				li.wBorder
+					a(href='/contact') Contact
+				li
+					a(href='/blog') Blog
+			.clear
+		#twitter
+			#twitter_updates
+				#gatheringupdates 
+					span Gathering latest updates
+					span#ellipsesTwitter
+			#twitter_link
+				a(href='http://www.twitter.com/someweather', target='_blank')
+					span Follow
+					span.sw @someweather
+					span on Twitter
+		#right
+			#technologies
+				a(href='http://www.wordpress.org', target='_blank')
+					img(src='/img/wordpress.png')
+				a(href='http://www.jquery.com', target='_blank')
+					img(src='/img/jquery.png')
+			#copyright
+				Copyright 2011 Some Weather Web Design & Programming
+			#admin
 				- if (session.user)
 					a(href='/logout') log out
 				- else
 					a(href='/login') log in
+			.clearBoth
