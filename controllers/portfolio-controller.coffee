@@ -12,7 +12,8 @@ exports.get = (req, res) ->
     res.json { item: item }
 
 exports.save = (req, res) ->
-	repository.save { }, (success) -> # todo: save item; will return boolean
+	action = if req.body.item.id < 1 then repository.create else repository.save
+	action req.body.item, (success) ->
 		res.json { success: success }
 
 exports.delete = (req, res) ->

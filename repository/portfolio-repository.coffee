@@ -12,28 +12,35 @@ class PortfolioRepository extends Repository
 		@PortfolioItem = @Model # alias for readability...
 
 	getAll: (cb) ->
-		console.log 'Getting all portfolio items...'
+		console.log 'Getting all portfolio items.'
 		@PortfolioItem.find (err, found) ->
 			console.log err if err
 			console.log "Found #{found.length} items."
 			cb found
 
 	getById: (id, cb) ->
-		console.log "Getting portfolio item with Id #{id}"
+		console.log "Getting portfolio item with Id #{id}."
 		@PortfolioItem.findById id, (err, found) ->
 			console.log err if err
 			cb found
-	
-	create: (item) ->
-		console.log 'Creating portfolio item.'
-		# todo: map properties!
-		item = new @PortfolioItem
-			name: 'my name!'
-		item.save (e, p) ->
+
+	create: (item, cb) ->
+		console.log "Creating portfolio item."
+		dbItem = map new @PortfolioItem(), item
+		dbItem.save(e, p) ->
 			console.log e if e
+			cb p?
+
+	save: (item, cb) ->
+		console.log "Saving portfolio item with Id #{item.id}."
+		getById item.id, (found) ->
+			map found, item
+			found.save(e, p) ->
+				console.log e if e
+				cb p?
 
 	delete: (id, cb) ->
-		console.log "Deleting portfolio item with Id #{id}"
+		console.log "Deleting portfolio item with Id #{id}."
 		@PortfolioItem.findById id, (err, item) ->
 			if err
 				console.log err
@@ -41,3 +48,12 @@ class PortfolioRepository extends Repository
 			else
 				item.remove()
 				true
+
+	map: (dbItem, rawItem) ->
+		dbItem.title = rawItem.title
+		dbItem.description = rawItem.description
+		dbItem.url = rawItem.url
+		dbItem.isActive = rawItem.isActive
+		dbItem.sortOrder = rawItem.sortOrder
+		dbItem.type = rawItem.type
+		dbItem

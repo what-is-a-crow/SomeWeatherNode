@@ -5,6 +5,9 @@ html
 		!= js('http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
 		!= js('https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js')
 		!= js('twitter')
+		-if (session.user)
+			!= js('knockout')
+			!= js('portfolio-admin') 
 		!= css('style')
 	body
 	#wrapper

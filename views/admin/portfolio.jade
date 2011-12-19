@@ -1,17 +1,14 @@
 h2 Portfolio Admin
-//for item in items
-//	.portfolio-item
-//		span= item.id
-//		a(href="/admin/portfolio/delete/#{item.id}") Delete!
-//a(href='/admin/portfolio/create') New Portfolio Item
 .portfolio-admin
 	.items(data-bind='visible: !selectedItem()')
 		.itemList(data-bind='foreach: items')
 			.item
-				a(href="#", data-bind='click: function() { $root.editItem($data) }')
+				a(href='#', data-bind='click: function() { $root.editItem($data) }')
 					span(data-bind='text: name()')
-				input(type='submit', data-bind='click: function() { $root.deleteItem($data) }', value='Delete')
-		input(type='submit', data-bind='click: function() { $root.newItem($data) }', value='New Item')
+				a(href='#', data-bind='click: function() { $root.moveUp($data) }, visible: function() { $root.canMoveUp($data) }')^
+				a(href='#', data-bind='click: function() { $root.moveDown($data) }, visible: function() { $root.canMoveDown($data) }')v
+				a(href='#', data-bind='click: function() { $root.delete($data) }')x
+		a(href='#', data-bind='click: function() { $root.newItem() }') New Portfolio Item
 	.current-item(data-bind='visible: selectedItem(), with: selectedItem()')
 		.row
 			label Name:
@@ -20,5 +17,5 @@ h2 Portfolio Admin
 			label 
 		
 script
-	new AdminPortfolio
-		initialData: items
+	//var manager = new PortfolioManager(items);
+	//manager.init();
